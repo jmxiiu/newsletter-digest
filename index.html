@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Jim's Newsletter Digest</title>
+  <style>
+    :root {
+      --bg: #f6f3ec;
+      --bg-elev: #fffdf8;
+      --bg-muted: #efe8da;
+      --text: #1c1915;
+      --muted: #5e574c;
+      --accent: #1b4f4a;
+      --accent-hover: #123834;
+      --border: #e0d8ca;
+      --shadow: 0 1px 2px rgba(28, 25, 21, 0.04), 0 8px 24px rgba(28, 25, 21, 0.06);
+      --danger: #b42318;
+      --success: #067647;
+      --callout-bg: #f3ead6;
+      --callout-border: #b8892e;
+      --tile-bg: #fffdf8;
+      --link: #1b4f4a;
+      --radius: 14px;
+      --max: 72rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141311;
+        --bg-elev: #1d1b18;
+        --bg-muted: #26231e;
+        --text: #f3efe6;
+        --muted: #b0a89c;
+        --accent: #8fcdc6;
+        --accent-hover: #b7e0db;
+        --border: #3a352e;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px rgba(0, 0, 0, 0.28);
+        --danger: #f97066;
+        --success: #75e0a7;
+        --callout-bg: #2b2416;
+        --callout-border: #d4a84b;
+        --tile-bg: #22201c;
+        --link: #8fcdc6;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antigua", Georgia, "Times New Roman", serif;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: var(--link);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+    a:hover { color: var(--accent-hover); }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    header.site {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header.site p.kicker {
+      margin: 0 0 0.4rem;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    header.site h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.85rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    header.site .summary {
+      margin: 0 0 0.65rem;
+      max-width: 40rem;
+      color: var(--muted);
+    }
+    header.site .updated {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    nav.toc {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.1rem 1.15rem;
+    }
+    nav.toc h2 {
+      margin: 0 0 0.7rem;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 650;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    nav.toc ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav.toc li { margin: 0; }
+    nav.toc a {
+      display: block;
+      text-decoration: none;
+      padding: 0.28rem 0.4rem;
+      border-radius: 6px;
+      color: var(--text);
+    }
+    nav.toc a:hover { background: var(--bg-muted); color: var(--accent); }
+    nav.toc .day-link { font-weight: 700; }
+    nav.toc .sub a {
+      padding-left: 1rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    @media (min-width: 960px) {
+      .layout {
+        grid-template-columns: 15.5rem minmax(0, 1fr);
+        gap: 2.5rem;
+        align-items: start;
+      }
+      nav.toc {
+        position: sticky;
+        top: 1.25rem;
+        max-height: calc(100vh - 2.5rem);
+        overflow: auto;
+      }
+    }
+    section.day { min-width: 0; }
+    section.day > h2.day-title {
+      margin: 0 0 1.25rem;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.02em;
+      padding-bottom: 0.7rem;
+      border-bottom: 2px solid var(--text);
+    }
+    section.topic {
+      margin: 0 0 2.25rem;
+    }
+    section.topic > h3 {
+      margin: 0 0 0.9rem;
+      font-size: 1.28rem;
+      letter-spacing: -0.01em;
+    }
+    section.item {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.05rem 1.2rem 0.85rem;
+      margin: 0 0 1rem;
+    }
+    section.item h4 {
+      margin: 0 0 0.2rem;
+      font-size: 1.05rem;
+      line-height: 1.35;
+    }
+    .meta {
+      margin: 0 0 0.7rem;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .caption {
+      margin: -0.35rem 0 0.75rem;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    ul.facts {
+      margin: 0 0 0.3rem;
+      padding: 0 0 0 1.15rem;
+    }
+    ul.facts li { margin: 0 0 0.5rem; }
+    ul.facts li:last-child { margin-bottom: 0; }
+    .callout {
+      background: var(--callout-bg);
+      border-left: 4px solid var(--callout-border);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.15rem;
+      margin: 0 0 1rem;
+    }
+    .callout .lead {
+      margin: 0 0 0.35rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .callout p { margin: 0; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+    @media (min-width: 640px) {
+      .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .tile {
+      background: var(--tile-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 0.95rem 0.8rem;
+      box-shadow: var(--shadow);
+    }
+    .tile .value {
+      display: block;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+    .tile .label {
+      display: block;
+      margin-top: 0.2rem;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .tile.danger .value { color: var(--danger); }
+    .tile.success .value { color: var(--success); }
+    footer.site {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <p class="kicker">Daily briefing</p>
+      <h1>Jim's Newsletter Digest</h1>
+      <p class="summary">A running digest of Jim's newsletters, forwarded by Newsletter and grouped by day, newest first. Times are Pacific.</p>
+      <p class="updated">Last updated: Nov 16, 2026, 10:21 AM PT</p>
+    </header>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Table of contents">
+        <h2>Contents</h2>
+        <ol>
+          <li class="day-link"><a href="#2026-11-16">Monday, Nov 16, 2026</a></li>
+          <li class="sub"><a href="#2026-11-16-takeaways">Key takeaways</a></li>
+          <li class="sub"><a href="#2026-11-16-markets">Markets before the open</a></li>
+          <li class="sub"><a href="#2026-11-16-biz">Markets and business</a></li>
+          <li class="sub"><a href="#2026-11-16-marketing">Marketing, retail and climate</a></li>
+          <li class="sub"><a href="#2026-11-16-faa">Air-travel ground stop</a></li>
+          <li class="sub"><a href="#2026-11-16-opinion">Opinion and ideas</a></li>
+          <li class="sub"><a href="#2026-11-16-politics">Politics and world</a></li>
+          <li class="sub"><a href="#2026-11-16-cyber">Tech and cybersecurity</a></li>
+          <li class="sub"><a href="#2026-11-16-alerts">WSJ alerts</a></li>
+        </ol>
+      </nav>
+
+      <main>
+        <!-- Add new day sections above this one, newest first. -->
+        <section class="day" id="2026-11-16">
+          <h2 class="day-title">Monday, Nov 16, 2026</h2>
+
+          <section class="topic" id="2026-11-16-takeaways">
+            <h3>Key takeaways</h3>
+            <div class="callout">
+              <p class="lead">Nvidia and Anthropic dominate the week.</p>
+              <p>Nvidia has lost more than $1.8 trillion in value in about a month (down 24% since Oct. 28) and reports Tuesday under interim CEO Colette Kress. Anthropic is expected to price its $1.3 trillion IPO Wednesday and start trading on the Nasdaq Thursday.</p>
+            </div>
+            <ul class="facts">
+              <li>Investigators probing the FAA ground stop are focused on a router in Arkansas; contractor L3Harris is under scrutiny, and more disruptions are possible until the copper-to-fiber switch finishes at the end of 2028.</li>
+              <li>AI agents are starting to shop: Mastercard's CEO says one in 10 people now use an agent, and banks are racing to handle fraud and legal risk as Meta's AI assistants make purchases.</li>
+              <li>Huang's exit could close the workarounds that let China get Nvidia chips and end Nvidia's role as an "open checkbook" for AI startups; UBS says more than $50 billion could leave the market.</li>
+              <li>A Fed hike looks likely: CME FedWatch shows a 90% chance of a quarter-point hike in December, and the market now expects three hikes by June. Oxford Economics sees October PCE inflation at 3.8%, and the 10-year yield was 5.15% before the open.</li>
+              <li>Fed chairman Warsh says the Fed is gaming out how AI could reshape the economy.</li>
+            </ul>
+          </section>
+
+          <section class="topic" id="2026-11-16-markets">
+            <h3>Markets before the open</h3>
+            <p class="caption">From WSJ Markets A.M., 3:26am PST</p>
+            <div class="metrics">
+              <div class="tile danger"><span class="value">&minus;0.33%</span><span class="label">S&amp;P 500 futures</span></div>
+              <div class="tile danger"><span class="value">&minus;0.83%</span><span class="label">Nasdaq 100 futures</span></div>
+              <div class="tile success"><span class="value">+0.02%</span><span class="label">Dow futures</span></div>
+              <div class="tile"><span class="value">5.15%</span><span class="label">10-year yield</span></div>
+              <div class="tile"><span class="value">88.32</span><span class="label">Crude</span></div>
+              <div class="tile"><span class="value">3,879.10</span><span class="label">Gold</span></div>
+            </div>
+          </section>
+
+          <section class="topic" id="2026-11-16-biz">
+            <h3>Markets and business</h3>
+
+            <section class="item">
+              <h4>WSJ Markets A.M.: Big-Tech Worrywarts Have Their Day</h4>
+              <p class="meta">3:26am PST, by Jonathan Weil, filling in for Spencer Jakab</p>
+              <ul class="facts">
+                <li>The Nasdaq looked set to open lower after a tech sell-off in Asia: Samsung fell about 4%, TSMC about 6% and SK Hynix about 8%, and Nvidia was down about 2% before the bell.</li>
+                <li>Lead: <a href="https://www.wsj.com/finance/stocks/when-nvidia-stumbled-equal-weight-funds-delivered-96451c8f" target="_blank" rel="noopener noreferrer">When Nvidia Stumbled, Equal-Weight Funds Delivered</a>. The S&amp;P 500 Equal Weight Index is up 17.0% this year, against 11.5% for the regular S&amp;P 500, and the top 10 stocks make up just under 40% of the index.</li>
+                <li><a href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-12-17-2025" target="_blank" rel="noopener noreferrer">Live markets coverage</a></li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>Barron's Investor Circle: How to Prepare for a Fed Hike</h4>
+              <p class="meta">4:03am PST, by Josh Schafer</p>
+              <ul class="facts">
+                <li>Lead: <a href="https://www.barrons.com/articles/how-to-prepare-portfolio-fed-rate-hike-9111c38c" target="_blank" rel="noopener noreferrer">Start Fearing the Fed</a>. After a week dominated by <a href="https://www.barrons.com/articles/nvidia-jensen-huang-ceo-successor-colette-kress-a53b45fd" target="_blank" rel="noopener noreferrer">Jensen Huang's exit from Nvidia</a>, CME FedWatch shows the market pricing a 90% chance of a quarter-point hike in December and a 10% chance of a half-point. It now expects three hikes by June instead of two.</li>
+                <li>Morgan Stanley's Mike Wilson warns that a hawkish Fed is the main risk to his call for a year-end rally. Small caps feel the most pain from higher rates because of their floating-rate debt, and some large caps like Rocket Companies also suffer.</li>
+                <li><a href="https://www.barrons.com/articles/anthropic-ipo-ant-stock-price-fa215f5a" target="_blank" rel="noopener noreferrer">Anthropic's IPO</a> is expected this week.</li>
+                <li>Also linked: <a href="https://www.barrons.com/articles/buy-take-two-stock-grand-theft-auto-vi-1b7b9907" target="_blank" rel="noopener noreferrer">Grand Theft Auto VI Makes Take-Two Stock Look Like a Steal</a>.</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ Morning Ledger: Nvidia Earnings, Anthropic IPO Ahead</h4>
+              <p class="meta">4:34am PST, by Walden Siew. <a href="https://www.wsj.com/cfo-journal/nvidia-earnings-anthropic-ipo-ahead-in-new-test-for-ai-economy-7dced222" target="_blank" rel="noopener noreferrer">Nvidia Earnings, Anthropic IPO Ahead in New Test for AI Economy</a></p>
+              <ul class="facts">
+                <li>Nvidia reports Tuesday, its first report under interim CEO Colette Kress, after Jensen Huang resigned over extramarital affairs with an employee and with a suspected Chinese spy.</li>
+                <li>Bessent is pushing Nvidia to hire an outsider and wants answers within 10 days. Huang's allies are <a href="https://www.wsj.com/tech/the-campaign-to-bring-back-jensen-huang-as-nvidia-ceo-e91b0b2c" target="_blank" rel="noopener noreferrer">campaigning to reinstate him</a>, with a petition of 175,000 names. <a href="https://www.wsj.com/podcasts/whats-news/where-does-nvidia-go-from-here/9a266a92-4695-4a95-a92a-d4d13fd4597e" target="_blank" rel="noopener noreferrer">Podcast: where Nvidia goes from here</a>.</li>
+                <li>Anthropic is expected to price its $1.3 trillion IPO Wednesday and start trading on the Nasdaq Thursday.</li>
+                <li>Home Depot, Lowe's, Target and Walmart also report this week.</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ CEO Brief: How Mastercard's CEO Stays in Front of Change</h4>
+              <p class="meta">3:04am PST, by Alan Murray</p>
+              <ul class="facts">
+                <li>Murray interviewed Mastercard CEO Michael Miebach on the WSJ Leadership Institute's Leaders podcast. People once predicted blockchain would doom Mastercard and Visa, and it didn't.</li>
+                <li>Miebach is localizing Mastercard's technology and partnering with governments like Brazil and India on financial inclusion. He says the business case is poor at 1, 5 or 10 years, but over 15 years it builds the next class of consumers.</li>
+                <li>He says shopping through AI agents has grown "like a hockey stick," with one in 10 people now using an agent, and he expects tokenized, real-time payments within five years.</li>
+                <li><a href="https://www.wsj.com/video/series/wsj-leadership-institute-leaders/mastercard-ceo-on-ai-agents-and-the-16-trillion-cyber-threat/44320703-DCB4-4967-B062-8491B9B4120E" target="_blank" rel="noopener noreferrer">Watch the interview</a></li>
+                <li>Stories to read: <a href="https://www.wsj.com/tech/the-campaign-to-bring-back-jensen-huang-as-nvidia-ceo-e91b0b2c" target="_blank" rel="noopener noreferrer">The Campaign to Bring Back Jensen Huang as Nvidia CEO</a> and <a href="https://www.wsj.com/business/airlines/the-defense-contractor-at-the-center-of-the-ground-stop-e20c4173" target="_blank" rel="noopener noreferrer">The Defense Contractor at the Center of the Ground Stop</a>.</li>
+                <li>Quote of the day, CarMax CEO Keith Barr on the rivalry with Carvana: "It's not as if there's going to be one winner and one loser here."</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ Wealth Adviser Briefing: Banks Race to Keep Up as AI Bots Use Credit Cards</h4>
+              <p class="meta">3:30am PST</p>
+              <ul class="facts">
+                <li>Lead: <a href="https://www.wsj.com/finance/investing/banks-race-to-keep-up-as-ai-bots-use-credit-cards-7cc04907" target="_blank" rel="noopener noreferrer">Banks Race to Keep Up as AI Bots Use Credit Cards</a>. Meta's AI assistants can now make purchases for cardholders, and banks are worried about fraud, returns and legal risk.</li>
+                <li>Market Talk: Oxford Economics sees October PCE inflation at 3.8%, and elevated price pressures support expectations of a Fed hike. RBC BlueBay is "relatively constructive" on eurozone yields.</li>
+                <li>Retirement: <a href="https://www.wsj.com/personal-finance/retirement/here-are-the-new-contribution-limits-for-401-k-s-and-iras-in-2027-40fe1db2" target="_blank" rel="noopener noreferrer">New 401(k) and IRA contribution limits for 2027</a> let high earners in their early 60s put in up to $86,750. Under a House bill, <a href="https://www.barrons.com/advisor/articles/retirement-plan-nurses-teachers-house-bill-e2dc54f1" target="_blank" rel="noopener noreferrer">retirement plans for nurses and teachers would look more like 401(k)s</a>.</li>
+                <li>Also: <a href="https://www.wsj.com/health/healthcare/cvs-breakup-wont-satisfy-washington-it-could-still-work-for-wall-street-1b5004e3" target="_blank" rel="noopener noreferrer">CVS Breakup Won't Satisfy Washington. It Could Still Work for Wall Street</a>, <a href="https://www.wsj.com/politics/policy/this-permitting-overhaul-cant-come-fast-enough-98564d37" target="_blank" rel="noopener noreferrer">This Permitting Overhaul Can't Come Fast Enough</a>, <a href="https://www.wsj.com/business/they-were-the-indispensable-ceosuntil-they-werent-1bb8a52c" target="_blank" rel="noopener noreferrer">They Were the Indispensable CEOs, Until They Weren't</a>, <a href="https://www.wsj.com/arts-culture/food-cooking/best-turkey-tips-thanksgiving-451839b7" target="_blank" rel="noopener noreferrer">4 Surprising Hacks for Cooking a Better Turkey</a>, <a href="https://www.wsj.com/buyside/personal-finance/credit-cards/how-many-credit-cards-should-you-have" target="_blank" rel="noopener noreferrer">How Many Credit Cards Should You Have?</a></li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ CIO Journal, The Morning Download: Nvidia CEO Ouster Reverberates Globally</h4>
+              <p class="meta">6:39am PST, by Steven Rosenbush. <a href="https://www.wsj.com/cio-journal/nvidia-ceo-ouster-reverberates-globally-c882938d" target="_blank" rel="noopener noreferrer">Nvidia CEO Ouster Reverberates Globally</a></p>
+              <ul class="facts">
+                <li>Huang's resignation could be as consequential as any corporate shake-up in history, with effects across semiconductors, startups and geopolitics.</li>
+                <li>The <a href="https://www.wsj.com/tech/jensen-huang-backdoor-ai-data-centers-a5e4499d" target="_blank" rel="noopener noreferrer">workarounds</a> that let China get Nvidia chips despite export controls may close. China brought in $12.4 billion of revenue in the six months to July 26, about 7%. Culper Research estimates it was over 20% last fiscal year. Megaspeed, tied to Huang's onetime mistress Alice Huang, arranged nearly $12 billion in chip shipments to Chinese firms. Megaspeed says it follows export controls.</li>
+                <li>Under interim CEO Colette Kress, Nvidia's role as an <a href="https://www.wsj.com/tech/ai/nvidias-days-as-an-open-checkbook-for-the-ai-economy-are-numbered-90c7b388" target="_blank" rel="noopener noreferrer">"open checkbook"</a> for AI startups is ending. UBS says more than $50 billion could leave the market. The Reflection AI deal and a Thinking Machines Lab investment at a $40 billion valuation hang in the balance.</li>
+                <li>Bessent <a href="https://www.wsj.com/tech/ai/bessent-urges-nvidia-to-pick-outsider-as-next-ceo-f9d21a83" target="_blank" rel="noopener noreferrer">urged Nvidia's board to pick an outsider as CEO</a> and questioned whether it knowingly sold chips to China.</li>
+                <li>This week: Nvidia earnings Tuesday and Anthropic's IPO pricing. Nasdaq futures were down 0.9% this morning.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section class="topic" id="2026-11-16-marketing">
+            <h3>Marketing, retail and climate</h3>
+
+            <section class="item">
+              <h4>WSJ CMO Today: Verizon's New Vibe</h4>
+              <p class="meta">6:19am PST, by Nat Ives. <a href="https://www.wsj.com/cmo-today/verizon-trades-network-claims-for-pop-culture-buzz-78295970" target="_blank" rel="noopener noreferrer">Verizon's New Vibe</a></p>
+              <ul class="facts">
+                <li>Under CMO Leslie Berland, <a href="https://www.wsj.com/business/media/why-verizon-traded-nerdy-pitchmen-for-hollywood-heartthrobs-7d249af1" target="_blank" rel="noopener noreferrer">Verizon dropped network-claim ads for pop-culture ones</a>, like its spot with Connor Storrie of "Heated Rivalry." One commercial was pulled after it alienated viewers 55 and older, and some doubt buzzy ads win subscribers.</li>
+                <li>Suzanne Vranica says in-house teams move faster than agencies. Marketers are testing provocative themes again as caution about social messaging fades.</li>
+                <li>LVMH leaders are <a href="https://www.wsj.com/business/retail/gucci-is-cutting-prices-louis-vuitton-is-reluctant-to-follow-the-trend-50e4b218" target="_blank" rel="noopener noreferrer">debating price cuts</a> as mid-tier growth evaporates. Gucci has already cut some prices, taking one bag from €3,500 to €2,450 (down 30%).</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ Pro Business Resilience: The Climate Reporting Saga Giving Companies Whiplash</h4>
+              <p class="meta">8:31am PST, by Clara Hudson. <a href="https://www.wsj.com/pro/business-resilience/the-long-running-climate-reporting-saga-that-is-giving-companies-whiplash-43eb2b4f" target="_blank" rel="noopener noreferrer">The Long-Running Climate Reporting Saga Giving Companies Whiplash</a></p>
+              <ul class="facts">
+                <li>Companies were a day from California's Nov. 10 deadline to disclose Scope 1 and 2 emissions when an appeals court ruled that Scope 3 reporting likely shouldn't be required, while essentially upholding the Scope 1 and 2 mandate. Scope 3 is scheduled for next year, and the new Democratic majority in Congress may add pressure.</li>
+                <li>Three veterans of Trump's Energy Department founded Mavria, which makes modular data centers that ship by truck. "You basically plug it in on site," says co-founder Nick Poradek.</li>
+                <li>Global CO2 emissions are expected to fall this year because the Iran war is cutting fossil-fuel use, while the IMF projects 3.1% global growth. 23% of the world's energy is used as electricity, and the target is 35% by 2035.</li>
+                <li>An environmental coalition is using Europe's anti-money-laundering laws against JBS and 12 of its financial backers.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section class="topic" id="2026-11-16-faa">
+            <h3>Air-travel ground stop</h3>
+
+            <section class="item">
+              <h4>WSJ Logistics Report: Probe Zeroes In on a Router in Arkansas</h4>
+              <p class="meta">4:03am PST, by Mark R. Long. <a href="https://www.wsj.com/logistics-report/air-travel-halt-reverberates-as-probe-zeroes-in-on-a-router-in-arkansas-f1c2505a" target="_blank" rel="noopener noreferrer">Air-Travel Halt Reverberates as Probe Zeroes In on a Router in Arkansas</a></p>
+              <ul class="facts">
+                <li>Airlines spent the weekend <a href="https://www.wsj.com/business/airlines/groundstop-ripples-into-third-day-of-scrapped-flights-003cba99" target="_blank" rel="noopener noreferrer">rebuilding their schedules</a>.</li>
+                <li>Investigators are focused on a router in Arkansas that pinged the network at a very high rate. Together with one in Texas, it overwhelmed the FAA's system. What caused <a href="https://www.wsj.com/business/airlines/the-single-router-in-southern-arkansas-that-ground-air-travel-to-a-halt-eedc326c" target="_blank" rel="noopener noreferrer">the router problem</a> is still unknown. Duffy points to a device fault or "incompetence" at the contractor L3Harris, and says more disruptions are possible until copper is replaced with fiber at the end of 2028.</li>
+                <li>CNN reports that a Copa plane hit the nose of a UPS jet at Miami airport on Saturday, injuring two people.</li>
+                <li>Trucking: DAT One had 187,501 equipment posts in the week ended Nov. 13, up 9%, and load posts fell 6%.</li>
+                <li><a href="https://www.wsj.com/business/deals/railroad-ceos-loose-lips-threaten-to-torpedo-his-72-billion-megadeal-30162207" target="_blank" rel="noopener noreferrer">A railroad CEO's loose lips threaten his $72 billion megadeal</a>, the Union Pacific and Norfolk Southern merger.</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ Morning Risk Report: Ground Stop Puts Focus on Key Defense Contractor</h4>
+              <p class="meta">4:57am PST, by Yusuf Khan. <a href="https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-ground-stop-puts-focus-on-key-defense-contractor-2cbe6ae4" target="_blank" rel="noopener noreferrer">Ground Stop Puts Focus on Key Defense Contractor</a></p>
+              <ul class="facts">
+                <li>L3Harris runs much of the FAA's communications system and is in the spotlight after <a href="https://www.wsj.com/business/airlines/the-defense-contractor-at-the-center-of-the-ground-stop-e20c4173" target="_blank" rel="noopener noreferrer">its upgrade caused unprecedented turmoil</a>.</li>
+                <li>Duffy has publicly blamed either the company's "incompetence" or its equipment. L3Harris says it's cooperating, and that its router installation was approved by the FAA with an FAA representative present.</li>
+                <li>The multibillion-dollar switch from copper to fiber finishes at the end of 2028, and more disruptions are possible until then.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section class="topic" id="2026-11-16-opinion">
+            <h3>Opinion and ideas</h3>
+
+            <section class="item">
+              <h4>WSJ Morning Editorial Report</h4>
+              <p class="meta">1:05am PST, by Paul Gigot</p>
+              <ul class="facts">
+                <li><a href="https://www.wsj.com/opinion/donald-trump-and-jensen-huang-have-the-same-tragic-flaw-5578e58b" target="_blank" rel="noopener noreferrer">Donald Trump and Jensen Huang Have the Same Tragic Flaw</a>, by Allysia Finley: both men show hubris after success.</li>
+                <li><a href="https://www.wsj.com/opinion/doctors-have-a-new-assistant-4c17d75d" target="_blank" rel="noopener noreferrer">Doctors Have a New Assistant</a>, by Andy Kessler: an AI tool called OpenEvidence is helping physicians.</li>
+                <li><a href="https://www.wsj.com/opinion/trump-wont-open-a-bridge-biden-closed-8b0296c7" target="_blank" rel="noopener noreferrer">Trump Won't Open a Bridge Biden Closed</a>, by Mary Anastasia O'Grady: keeping Mexican trucks out of El Paso hurts the U.S. data-center industry.</li>
+                <li><a href="https://www.wsj.com/opinion/college-ranking-city-journal-free-speech-cc8e2bc3" target="_blank" rel="noopener noreferrer">College Rankings, Minus the Politics</a>: a new rating counts ideological diversity and free speech, and UT Austin ranks No. 1.</li>
+                <li><a href="https://www.wsj.com/arts-culture/fine-art/arts-calendar-happenings-for-the-week-of-november-15-airdigital-8af6f777" target="_blank" rel="noopener noreferrer">Arts Calendar, week of Nov 15</a></li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>WSJ Free Expression: Countdown to Digital Doom</h4>
+              <p class="meta">3:56am PST, by Matthew Hennessey. <a href="https://www.wsj.com/opinion/free-expression/countdown-to-digital-doom-efc1fd04" target="_blank" rel="noopener noreferrer">Countdown to Digital Doom</a></p>
+              <ul class="facts">
+                <li>Hennessey thinks a complete digital collapse, the "Main Event," is probably coming. After a week when Microsoft went down and the air-traffic system broke, he says to update your passwords and use passkeys, but to accept that the anxiety is constant.</li>
+                <li>Also: Kyle Smith on <a href="https://www.wsj.com/opinion/free-expression/hatred-of-data-centers-doesnt-compute-65c82c0b" target="_blank" rel="noopener noreferrer">the hatred of data centers</a>, Dominic Green on <a href="https://www.wsj.com/opinion/free-expression/the-trial-of-michel-houellebecq-bbd2fd39" target="_blank" rel="noopener noreferrer">the trial of Michel Houellebecq</a>, Spencer Klavan on <a href="https://www.wsj.com/opinion/free-expression/tiktok-grows-great-characters-213b1428" target="_blank" rel="noopener noreferrer">TikTok's character actors</a>, Zach Kessel on <a href="https://www.wsj.com/opinion/free-expression/presidential-primary-season-is-too-long-d24b9938" target="_blank" rel="noopener noreferrer">why presidential primary season is too long</a>, and Emma Camp's video on <a href="https://www.wsj.com/video/why-do-we-want-ai-friends/37102DFC-B606-4D1E-AA6A-2A89EE90FE26" target="_blank" rel="noopener noreferrer">why we want AI friends</a>.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section class="topic" id="2026-11-16-politics">
+            <h3>Politics and world</h3>
+
+            <section class="item">
+              <h4>WSJ Politics: The White House vs. Congress War Is On. And It's Ugly.</h4>
+              <p class="meta">4:15am PST, by Damian Paletta. <a href="https://www.wsj.com/arts-culture/books/the-white-house-vs-congress-war-is-on-and-its-ugly-c21068bc" target="_blank" rel="noopener noreferrer">The White House vs. Congress War Is On. And It's Ugly.</a></p>
+              <ul class="facts">
+                <li>U.S. Attorney Aaron Reitz told Sen. Elizabeth Warren, who is likely to chair Senate Banking in January, to preserve documents tied to the investigations she plans. He appears to have Stephen Miller's backing. <a href="https://www.wsj.com/politics/policy/doj-is-ready-to-battle-congress-a-texas-prosecutor-placed-himself-at-the-front-deaceeb7" target="_blank" rel="noopener noreferrer">Details</a>.</li>
+                <li>Trump talked about working with Democrats in his <a href="https://www.wsj.com/politics/policy/five-takeaways-from-trumps-60-minutes-interview-7a0e306b" target="_blank" rel="noopener noreferrer">60 Minutes interview</a>, but Miller seems to be digging in. Democrats are split between focusing on costs and investigating the White House.</li>
+                <li>Alaska's Senate race is still uncalled, with Peltola leading Sullivan. Trump flies to Alaska Monday, then to Manila for Tuesday's summit.</li>
+                <li><a href="https://www.wsj.com/business/airlines/sean-duffy-made-the-call-to-shut-down-flights-now-hes-making-his-case-1210b9c2" target="_blank" rel="noopener noreferrer">Sean Duffy says the ground stop</a> came from a lack of investment, and he wants $50 billion from Congress.</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>The Spectator Today (US): MAGA 1 was crazy. Are you ready for MAGA 2?</h4>
+              <p class="meta">4:54am PST, lead by Michael Brendan Dougherty. <a href="https://spectator.com/article/how-the-republican-establishment-is-rebuilding-for-life-after-trump/?edition=us" target="_blank" rel="noopener noreferrer">MAGA 1 was crazy. Are you ready for MAGA 2?</a></p>
+              <ul class="facts">
+                <li>The nationalists, restrainers and others that MAGA 1.0 brought in now feel passed over or betrayed by Trump.</li>
+                <li>Also: <a href="https://spectator.com/article/is-this-to-blame-for-europes-latest-migrant-crisis/?edition=us" target="_blank" rel="noopener noreferrer">Is this the reason for Europe's latest migrant crisis?</a> by Gavin Mortimer, and <a href="https://spectator.com/article/the-joy-of-spacexs-starship-catch/?edition=us" target="_blank" rel="noopener noreferrer">The joy of SpaceX's Starship catch</a> by Druin Burch.</li>
+                <li>News: Duffy says he can't cancel the L3Harris contract. A judge temporarily blocked Trump's closure of East Potomac Golf Links. Trump, Xi and Putin are expected to meet Thursday in Shenzhen at APEC.</li>
+                <li>Blue slips: Democratic majorities arrive Jan. 3, 2027. Senators including Cornyn and Tillis plan to use "blue slips" to block a rush of Trump judicial appointments. He made 83 in the first two years of his first term and 55 so far this time.</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>The Spectator Lunchtime Espresso: Being closer to EU will have costs, Miliband admits</h4>
+              <p class="meta">5:03am PST</p>
+              <ul class="facts">
+                <li>Miliband <a href="https://www.telegraph.co.uk/politics/2026/11/16/closer-eu-ties-will-cost-britain-miliband-admits/" target="_blank" rel="noopener noreferrer">admits closer EU ties will have costs</a> and <a href="https://www.bbc.co.uk/sounds/play/m00349wh" target="_blank" rel="noopener noreferrer">says he won't resign</a> over approving the Rosebank oil field.</li>
+                <li><a href="https://www.bbc.co.uk/news/articles/c6p9dzmj514ko" target="_blank" rel="noopener noreferrer">Milburn's welfare report</a> will recommend lower National Insurance for employers who hire under-25s. <a href="https://www.theguardian.com/business/2026/nov/16/boots-pharmacy-begin-prescribing-medical-cannabis-uk" target="_blank" rel="noopener noreferrer">Boots will start prescribing medical cannabis</a>. <a href="https://www.ft.com/content/cf57a196-bcbc-4605-a977-73fa0498aeed?syn-25a6b1a6=1" target="_blank" rel="noopener noreferrer">Ukraine's biggest drone attack on Russia</a> hit the Crimean Bridge.</li>
+                <li>On The Spectator: <a href="https://spectator.com/article/the-rape-scandal-no-one-wants-to-talk-about/" target="_blank" rel="noopener noreferrer">The rape scandal no one wants to talk about</a> (Patrick West), <a href="https://spectator.com/article/the-use-and-abuse-of-genocide/" target="_blank" rel="noopener noreferrer">The use and abuse of 'genocide'</a> (Dmytro Kuleba), <a href="https://spectator.com/article/i-know-why-tommy-robinsons-grooming-gang-book-is-a-bestseller/" target="_blank" rel="noopener noreferrer">Why Tommy Robinson's book is a bestseller</a> (Rosie Lewis), <a href="https://spectator.com/article/why-labours-welfare-reforms-will-come-to-nothing/" target="_blank" rel="noopener noreferrer">Why Labour's welfare reforms will come to nothing</a> (Stephen Pollard), <a href="https://spectator.com/article/how-ai-is-unlocking-the-mysteries-of-history/" target="_blank" rel="noopener noreferrer">How AI is unlocking the mysteries of history</a> (Sam Leith).</li>
+              </ul>
+            </section>
+
+            <section class="item">
+              <h4>The Spectator (US issue): MAGA 2.0</h4>
+              <p class="meta">8:06am PST, from Margaret Mitchell, US assistant editor</p>
+              <ul class="facts">
+                <li>Cover story: <a href="https://spectator.com/article/how-the-republican-establishment-is-rebuilding-for-life-after-trump/?edition=us" target="_blank" rel="noopener noreferrer">Michael Brendan Dougherty on how the Republican establishment is rebuilding for life after Trump</a>. Anti-war conservatives angry about the Iran conflict, immigration restrictionists and the MAHA movement feel Trump broke his promises and are looking for a successor. The central question is whether that's J.D. Vance.</li>
+                <li>Politics: Ann Coulter defends Trump promoting Stephen Miller to chief of staff. <a href="https://spectator.com/article/the-republicans-need-desantis-just-not-in-2028/?edition=us" target="_blank" rel="noopener noreferrer">Daniel McCarthy: the GOP needs DeSantis, just not in 2028</a>. <a href="https://spectator.com/article/to-win-back-the-abstainers-republicans-need-to-be-rebellious/?edition=us" target="_blank" rel="noopener noreferrer">Curtis Yarvin: Republicans need to be rebellious to win in 2028</a>. <a href="https://spectator.com/article/donald-trump-run-road-2028/?edition=us" target="_blank" rel="noopener noreferrer">Christopher Caldwell asks whether Trump has run out of road</a>. T.J. Harker argues Derek Chauvin should never have been prosecuted, and Roger Kimball defends the humanities.</li>
+                <li>Tech: <a href="https://spectator.com/article/the-too-cosy-arrangement-between-donald-trump-and-nvidia/?edition=us" target="_blank" rel="noopener noreferrer">Geoffrey Cain on the too-cosy Trump–Nvidia arrangement</a>, Katherine Dee on romance versus fantasy, Jules Evans on the dangers of doing philosophy with a chatbot.</li>
+                <li>American life: Andrew Cantarutti on tech killing off libraries, Christopher Sandford on how Stallone won over Hollywood, Calla Jones Corner on Thanksgiving in France, Josie Cox in corn country, Gage Klipper restoring a century-old house.</li>
+                <li>From London: <a href="https://spectator.com/article/will-nigel-farage-go-down-with-donald-trump/?edition=us" target="_blank" rel="noopener noreferrer">James Heale on whether Farage will go down with Trump</a>, <a href="https://spectator.com/article/the-prison-early-release-scheme-is-already-a-disaster/?edition=us" target="_blank" rel="noopener noreferrer">Max Jeffery on the prison early-release scheme</a>, <a href="https://spectator.com/article/would-you-pass-the-fake-breasts-test/?edition=us" target="_blank" rel="noopener noreferrer">Douglas Murray on the fake-breasts test</a>, Peter Hitchens on the West getting Poland wrong, Sam McPhail on violence by crypto thieves, and Julie Kavanagh on Richard Avedon.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section class="topic" id="2026-11-16-cyber">
+            <h3>Tech and cybersecurity</h3>
+
+            <section class="item">
+              <h4>WSJ Pro Cybersecurity: Startup Corma Builds AI Agents for Cyber Defense</h4>
+              <p class="meta">5:10am PST, by Kim S. Nash. <a href="https://www.wsj.com/pro/cybersecurity/startup-corma-builds-ai-agents-for-cyber-defense-7d296a0f" target="_blank" rel="noopener noreferrer">Startup Corma Builds AI Agents for Cyber Defense</a></p>
+              <ul class="facts">
+                <li>Corma <a href="https://www.wsj.com/pro/cybersecurity/cyber-startup-corma-raises-125-million-for-defensive-ai-agents-f30a4387" target="_blank" rel="noopener noreferrer">raised $125 million</a> at a $1 billion valuation. It builds automated defense agents on models trained for cybersecurity, and its CEO is Alon Pluda.</li>
+                <li>Breaches: Fandango disclosed a <a href="https://oag.ca.gov/system/files/Fandango%20-%20Individual%20Notice%20Template_Redacted.pdf" target="_blank" rel="noopener noreferrer">breach</a> in which card data was stolen Oct. 8 to 11. Uber drivers' <a href="https://www.wsj.com/tech/uber-says-personal-data-was-exposed-in-third-party-data-breach-02e3a875" target="_blank" rel="noopener noreferrer">data was exposed</a> through Fireworks.ai. The FBI <a href="https://www.ic3.gov/CSA/2026/261113.pdf" target="_blank" rel="noopener noreferrer">warned</a> about groups exploiting the Artex tool.</li>
+                <li><a href="https://www.justice.gov/usao-ndga/pr/johnson-controls-inc-and-two-subsidiaries-agree-pay-5-million-settle-federal-fraud" target="_blank" rel="noopener noreferrer">Johnson Controls will pay $5 million</a> to settle cyber fraud cases. The <a href="https://www.wsj.com/pro/cybersecurity/data/cyberindex" target="_blank" rel="noopener noreferrer">CyberIndex</a> rose 3.65% last week.</li>
+              </ul>
+            </section>
+          </section>
+
+          <section class="topic" id="2026-11-16-alerts">
+            <h3>WSJ alerts</h3>
+            <section class="item">
+              <ul class="facts">
+                <li>12:14am: <a href="https://www.wsj.com/business/energy-oil/oil-prices-rise-as-fresh-attacks-renew-middle-east-supply-concerns-bee22d97" target="_blank" rel="noopener noreferrer">Oil Prices Rise as Fresh Attacks Renew Middle East Supply Concerns</a>. Traders weighed new attacks and threats to the Strait of Hormuz against the oversupply they'd expected.</li>
+                <li>2:45am: <a href="https://www.wsj.com/finance/investing/the-investors-set-to-win-big-in-anthropics-ipo-a2fc795c" target="_blank" rel="noopener noreferrer">The Investors Set to Win Big in Anthropic's IPO</a>. Venture firms, tech companies and sovereign-wealth funds are in line for windfalls.</li>
+                <li>2:45am, Heard on the Street: <a href="https://www.wsj.com/tech/ai/big-tech-needs-to-spread-its-bets-on-data-centers-7550357f" target="_blank" rel="noopener noreferrer">Big Tech Needs to Spread Its Bets on Data Centers</a>. After the midterms, AI companies betting on a few mega projects look vulnerable.</li>
+                <li>5:15am: <a href="https://www.wsj.com/arts-culture/film/ron-howard-richard-avedon-movies-7d382328" target="_blank" rel="noopener noreferrer">Director Ron Howard's 'Best Ritual' Is a Walk With His Wife</a></li>
+                <li>6:15am, Opinion: <a href="https://www.wsj.com/opinion/end-the-orphan-tax-now-1cd92e9c" target="_blank" rel="noopener noreferrer">End the Orphan Tax Now</a>. Nine states still take Social Security money from foster children.</li>
+                <li>9:15am: <a href="https://www.wsj.com/economy/central-banking/warsh-says-fed-is-gaming-out-how-ai-could-reshape-economy-ab296fc9" target="_blank" rel="noopener noreferrer">Warsh Says Fed Is Gaming Out How AI Could Reshape Economy</a>. The Fed chairman questions whether the U.S. can stay a superpower if it doesn't lead in AI.</li>
+                <li>9:35am, Opinion: <a href="https://www.wsj.com/opinion/against-china-americas-current-tumult-has-advantages-cdf2769b" target="_blank" rel="noopener noreferrer">Against China, America's Current Tumult Has Advantages</a>. Beijing means to exploit the turmoil, but American dynamism could still win out.</li>
+              </ul>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+    <footer class="site">Newest day first. Future updates will be added as new day blocks at the top.</footer>
+  </div>
+</body>
+</html>
