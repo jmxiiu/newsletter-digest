@@ -244,6 +244,17 @@
     }
     .tile.danger .value { color: var(--danger); }
     .tile.success .value { color: var(--success); }
+    .tile .chg {
+      display: block;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      margin-top: 0.1rem;
+    }
+    .tile .chg.danger { color: var(--danger); }
+    .tile .chg.success { color: var(--success); }
+    .metrics + .item { margin-top: 1rem; }
     footer.site {
       margin-top: 2rem;
       padding-top: 1rem;
@@ -260,7 +271,7 @@
       <p class="kicker">Daily briefing</p>
       <h1>Jim's Newsletter Digest</h1>
       <p class="summary">A running digest of Jim's newsletters, forwarded by Newsletter and grouped by day, newest first. Times are Pacific.</p>
-      <p class="updated">Last updated: Nov 16, 2026, 12:50 PM PT</p>
+      <p class="updated">Last updated: Nov 16, 2026, 1:55 PM PT</p>
     </header>
 
     <div class="layout">
@@ -270,6 +281,7 @@
           <li class="day-link"><a href="#2026-11-16">Monday, Nov 16, 2026</a></li>
           <li class="sub"><a href="#2026-11-16-takeaways">Key takeaways</a></li>
           <li class="sub"><a href="#2026-11-16-markets">Markets before the open</a></li>
+          <li class="sub"><a href="#2026-11-16-close">Markets after the close</a></li>
           <li class="sub"><a href="#2026-11-16-biz">Markets and business</a></li>
           <li class="sub"><a href="#2026-11-16-marketing">Marketing, retail and climate</a></li>
           <li class="sub"><a href="#2026-11-16-faa">Air-travel ground stop</a></li>
@@ -298,6 +310,7 @@
               <li>A Fed hike looks likely: CME FedWatch shows a 90% chance of a quarter-point hike in December, and the market now expects three hikes by June. Oxford Economics sees October PCE inflation at 3.8%, and the 10-year yield was 5.15% before the open.</li>
               <li>Fed chairman Warsh says the Fed is gaming out how AI could reshape the economy.</li>
               <li>California's attorney general is suing OpenAI, alleging it knowingly developed AI models without necessary safeguards.</li>
+              <li>Tech sold off to start the week: the S&amp;P 500 fell 1.9%, the Nasdaq 2.5% and the Dow 739 points (1.4%). Nvidia fell another 4.1%, below $3.8T in market value, and its board isn't considering reinstating Jensen Huang.</li>
             </ul>
           </section>
 
@@ -312,6 +325,33 @@
               <div class="tile"><span class="value">88.32</span><span class="label">Crude</span></div>
               <div class="tile"><span class="value">3,879.10</span><span class="label">Gold</span></div>
             </div>
+          </section>
+
+          <section class="topic" id="2026-11-16-close">
+            <h3>Markets after the close</h3>
+            <p class="caption">From WSJ Markets P.M., 1:40pm PT. Markets at a glance as of 4:40pm ET</p>
+            <div class="metrics">
+              <div class="tile"><span class="value">51,693</span><span class="chg danger">&minus;1.38%</span><span class="label">DJIA futures</span></div>
+              <div class="tile"><span class="value">7,444</span><span class="chg danger">&minus;1.83%</span><span class="label">S&amp;P futures</span></div>
+              <div class="tile"><span class="value">27,305.25</span><span class="chg danger">&minus;2.60%</span><span class="label">Nasdaq 100 futures</span></div>
+              <div class="tile"><span class="value">5.14</span><span class="label">10-yr</span></div>
+              <div class="tile"><span class="value">85.16</span><span class="chg danger">&minus;3.84%</span><span class="label">crude</span></div>
+              <div class="tile"><span class="value">3,856.20</span><span class="chg danger">&minus;0.77%</span><span class="label">gold</span></div>
+              <div class="tile"><span class="value">65,288.28</span><span class="chg success">+0.42%</span><span class="label">Bitcoin</span></div>
+            </div>
+            <section class="item">
+              <h4>WSJ Markets P.M.: AI Stocks Resume Their Slide</h4>
+              <p class="meta">1:40pm PT, by Telis Demos, Heard on the Street</p>
+              <ul class="facts">
+                <li>Tech sold off to start the week: S&amp;P 500 &minus;1.9%, Nasdaq &minus;2.5%, Dow &minus;739 pts (&minus;1.4%). <a href="https://www.wsj.com/finance/stocks/ai-stocks-resume-their-slide-1094403c" target="_blank" rel="noopener noreferrer">AI Stocks Resume Their Slide</a></li>
+                <li><a href="https://www.wsj.com/business/nvidias-board-not-considering-reinstating-jensen-huang-as-ceo-a2b913b1" target="_blank" rel="noopener noreferrer">Nvidia's board isn't considering reinstating Jensen Huang</a>: shares fell another 4.1%, market value below $3.8T; earnings Tuesday.</li>
+                <li><a href="https://www.wsj.com/economy/central-banking/warsh-says-fed-is-gaming-out-how-ai-could-reshape-economy-ab296fc9" target="_blank" rel="noopener noreferrer">Fed chair Warsh says the Fed is gaming out how AI could reshape the economy</a>, including worker displacement; 10-year yield fell 0.03 pt to 5.122%.</li>
+                <li><a href="https://www.wsj.com/business/earnings/tyson-foods-guides-for-sales-decline-as-beef-business-remains-under-pressure-9cb8ba01" target="_blank" rel="noopener noreferrer">Tyson Foods</a> led S&amp;P gainers, up almost 9%, expecting beef trends to improve.</li>
+                <li><a href="https://www.wsj.com/finance/stocks/the-month-that-rocked-the-ai-trade-and-rewired-wall-street-f33d3af3" target="_blank" rel="noopener noreferrer">The "set-it-and-forget-it" AI trade is over, investors say</a>, as volatility and divergence push even hedge funds to prepare for a new era.</li>
+                <li>One Big Story: <a href="https://www.wsj.com/tech/ai/big-tech-needs-to-spread-its-bets-on-data-centers-7550357f" target="_blank" rel="noopener noreferrer">Big Tech needs to spread its bets on data centers</a>. All of OpenAI's ~14 GW of planned capacity not yet under construction is in states whose governors back a pause; firms spread across many states look better positioned.</li>
+                <li>Coming up: Nvidia earnings Tuesday (first since Huang resigned), October retail sales, Fed speakers Musalem, Williams and Hammack, Home Depot and Disney earnings.</li>
+              </ul>
+            </section>
           </section>
 
           <section class="topic" id="2026-11-16-biz">
@@ -521,6 +561,14 @@
                 <li>Barometer: Brent $104.98 (down 10.76% on the day); GBP/USD $1.34; avg new 2-year fixed mortgage 5.97%.</li>
               </ul>
             </section>
+
+            <section class="item">
+              <h4>The Spectator Tonight: Why Robert Pattinson is a daring choice for Bond</h4>
+              <p class="meta">1:34pm PT, by Patrick Smith</p>
+              <ul class="facts">
+                <li>Pattinson has beaten a field including Callum Turner and Josh O'Connor; Patrick Smith argues his dangerous edge and weird streak make him the most intriguing choice and a possible fillip for the franchise. Bond once made stars rather than hiring them, whereas Pattinson arrives as a marquee name; Denis Villeneuve, who will direct, says he "has the timeless soul of 007." <a href="https://spectator.com/article/robert-pattinson-daring-choice-james-bond/?edition=us" target="_blank" rel="noopener noreferrer">Read the rest</a>. Also: <a href="https://spectator.com/article/who-owns-charles-de-gaulle/?edition=us" target="_blank" rel="noopener noreferrer">Who owns Charles de Gaulle?</a> by Matthew Fraser.</li>
+              </ul>
+            </section>
           </section>
 
           <section class="topic" id="2026-11-16-cyber">
@@ -559,6 +607,8 @@
                 <li>12:26pm, Opinion: <a href="https://www.wsj.com/opinion/the-call-for-civility-in-a-divided-government-e78299d7" target="_blank" rel="noopener noreferrer">The Call for Civility in a Divided Government</a>. Our leaders have two paths: political theater or bipartisan compromise.</li>
                 <li>12:27pm, Opinion: <a href="https://www.wsj.com/opinion/the-window-to-achieve-immigration-reform-ed549dbc" target="_blank" rel="noopener noreferrer">The Window to Achieve Immigration Reform</a>. If they work together, President Trump and the Democratic Party can reform a broken system.</li>
                 <li>12:44pm, Opinion: <a href="https://www.wsj.com/opinion/replace-dont-repair-the-air-traffic-control-system-b25c6d8d" target="_blank" rel="noopener noreferrer">Replace, Don't Repair, the Air-Traffic Control System</a>. Congress should start from scratch and allow one year to design a new state-of-the-art system.</li>
+                <li>1:16pm, Opinion: <a href="https://www.wsj.com/opinion/windy-city-whistleblower-a3ad84d8" target="_blank" rel="noopener noreferrer">Best of the Web: Windy City Whistleblower</a>. Chicago's CFO, the third to resign this year, says in the Chicago Tribune that the city's "structural" budget fix counts legal-settlement borrowing, with ~$190M of interest on 2027 bonds.</li>
+                <li>1:38pm, Latest in Dance: <a href="https://www.wsj.com/arts-culture/theater/paul-taylor-dance-company-review-riches-from-its-repertory-6d16febb" target="_blank" rel="noopener noreferrer">Paul Taylor Dance Company Review: Riches From Its Repertory</a>. The company draws on its 72-year history for several of its founder's dances, a Pam Tanowitz work and two world premieres.</li>
               </ul>
             </section>
           </section>
