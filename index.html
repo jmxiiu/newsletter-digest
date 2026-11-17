@@ -255,6 +255,66 @@
     .tile .chg.danger { color: var(--danger); }
     .tile .chg.success { color: var(--success); }
     .metrics + .item { margin-top: 1rem; }
+    .jump-yesterday {
+      margin: 0 0 1.5rem;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    .jump-yesterday a {
+      display: inline-block;
+      background: var(--accent);
+      color: #fffdf8;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.7rem 1.05rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    @media (prefers-color-scheme: dark) {
+      .jump-yesterday a { color: #141311; }
+    }
+    .jump-yesterday a:hover { color: #141311; background: var(--accent-hover); }
+    .day-note {
+      margin: 0 0 1.1rem;
+      color: var(--muted);
+    }
+    .yesterday-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.6rem 1.2rem;
+      margin: 2.75rem 0 1.35rem;
+      padding: 0.95rem 1.1rem;
+      background: var(--bg-muted);
+      border-top: 3px solid var(--text);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0 0 12px 12px;
+    }
+    .yesterday-banner .day-title {
+      margin: 0;
+      padding: 0;
+      border-bottom: none;
+      font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+    }
+    .back-today {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    nav.toc .toc-group {
+      margin: 0.9rem 0 0.3rem;
+      padding: 0.2rem 0.4rem 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 650;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      list-style: none;
+    }
     footer.site {
       margin-top: 2rem;
       padding-top: 1rem;
@@ -271,14 +331,21 @@
       <p class="kicker">Daily briefing</p>
       <h1>Jim's Newsletter Digest</h1>
       <p class="summary">A running digest of Jim's newsletters, forwarded by Newsletter and grouped by day, newest first. Times are Pacific.</p>
-      <p class="updated">Last updated: Nov 16, 2026, 11:33 PM PT</p>
+      <p class="updated">Last updated: Nov 17, 2026, 1:15 AM PT</p>
     </header>
+
+    <p class="jump-yesterday"><a href="#2026-11-16">Jump to yesterday (Mon Nov 16) ↓</a></p>
 
     <div class="layout">
       <nav class="toc" aria-label="Table of contents">
         <h2>Contents</h2>
         <ol>
-          <li class="day-link"><a href="#2026-11-16">Monday, Nov 16, 2026</a></li>
+          <li class="day-link"><a href="#2026-11-17">Today, Tue Nov 17, 2026</a></li>
+          <li class="sub"><a href="#2026-11-17-barrons">Barron's</a></li>
+          <li class="sub"><a href="#2026-11-17-alerts">WSJ alerts</a></li>
+          <li class="toc-group">Yesterday</li>
+          <li class="day-link"><a href="#2026-11-16">Mon Nov 16, 2026</a></li>
+          <li class="sub"><a href="#2026-11-16-barrons">Barron's</a></li>
           <li class="sub"><a href="#2026-11-16-alerts">WSJ alerts</a></li>
           <li class="sub"><a href="#2026-11-16-takeaways">Key takeaways</a></li>
           <li class="sub"><a href="#2026-11-16-markets">Markets before the open</a></li>
@@ -293,9 +360,40 @@
       </nav>
 
       <main>
-        <!-- Add new day sections above this one, newest first. -->
+        <!-- Today first, then yesterday. Keep only two days. -->
+        <section class="day" id="2026-11-17">
+          <h2 class="day-title">Today, Tue Nov 17, 2026</h2>
+          <p class="day-note">Today's items will appear here as they come in.</p>
+          <section class="topic" id="2026-11-17-barrons">
+            <h3>Barron's</h3>
+            <p class="day-note">Barron's items will appear here first, as they arrive.</p>
+          </section>
+          <section class="topic" id="2026-11-17-alerts">
+            <h3>WSJ alerts</h3>
+            <p class="day-note">Alerts will appear here newest first, as they arrive.</p>
+          </section>
+        </section>
+
         <section class="day" id="2026-11-16">
-          <h2 class="day-title">Monday, Nov 16, 2026</h2>
+          <div class="yesterday-banner">
+            <h2 class="day-title">Yesterday, Mon Nov 16, 2026</h2>
+            <a class="back-today" href="#2026-11-17">Back to today ↑</a>
+          </div>
+
+          <section class="topic" id="2026-11-16-barrons">
+            <h3>Barron's</h3>
+
+            <section class="item">
+              <h4>Barron's Investor Circle: How to Prepare for a Fed Hike</h4>
+              <p class="meta">4:03am PST, by Josh Schafer</p>
+              <ul class="facts">
+                <li>Lead: <a href="https://www.barrons.com/articles/how-to-prepare-portfolio-fed-rate-hike-9111c38c" target="_blank" rel="noopener noreferrer">Start Fearing the Fed</a>. After a week dominated by <a href="https://www.barrons.com/articles/nvidia-jensen-huang-ceo-successor-colette-kress-a53b45fd" target="_blank" rel="noopener noreferrer">Jensen Huang's exit from Nvidia</a>, CME FedWatch shows the market pricing a 90% chance of a quarter-point hike in December and a 10% chance of a half-point. It now expects three hikes by June instead of two.</li>
+                <li>Morgan Stanley's Mike Wilson warns that a hawkish Fed is the main risk to his call for a year-end rally. Small caps feel the most pain from higher rates because of their floating-rate debt, and some large caps like Rocket Companies also suffer.</li>
+                <li><a href="https://www.barrons.com/articles/anthropic-ipo-ant-stock-price-fa215f5a" target="_blank" rel="noopener noreferrer">Anthropic's IPO</a> is expected this week.</li>
+                <li>Also linked: <a href="https://www.barrons.com/articles/buy-take-two-stock-grand-theft-auto-vi-1b7b9907" target="_blank" rel="noopener noreferrer">Grand Theft Auto VI Makes Take-Two Stock Look Like a Steal</a>.</li>
+              </ul>
+            </section>
+          </section>
 
           <section class="topic" id="2026-11-16-alerts">
             <h3>WSJ alerts</h3>
@@ -403,17 +501,6 @@
                 <li>The Nasdaq looked set to open lower after a tech sell-off in Asia: Samsung fell about 4%, TSMC about 6% and SK Hynix about 8%, and Nvidia was down about 2% before the bell.</li>
                 <li>Lead: <a href="https://www.wsj.com/finance/stocks/when-nvidia-stumbled-equal-weight-funds-delivered-96451c8f" target="_blank" rel="noopener noreferrer">When Nvidia Stumbled, Equal-Weight Funds Delivered</a>. The S&amp;P 500 Equal Weight Index is up 17.0% this year, against 11.5% for the regular S&amp;P 500, and the top 10 stocks make up just under 40% of the index.</li>
                 <li><a href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-12-17-2025" target="_blank" rel="noopener noreferrer">Live markets coverage</a></li>
-              </ul>
-            </section>
-
-            <section class="item">
-              <h4>Barron's Investor Circle: How to Prepare for a Fed Hike</h4>
-              <p class="meta">4:03am PST, by Josh Schafer</p>
-              <ul class="facts">
-                <li>Lead: <a href="https://www.barrons.com/articles/how-to-prepare-portfolio-fed-rate-hike-9111c38c" target="_blank" rel="noopener noreferrer">Start Fearing the Fed</a>. After a week dominated by <a href="https://www.barrons.com/articles/nvidia-jensen-huang-ceo-successor-colette-kress-a53b45fd" target="_blank" rel="noopener noreferrer">Jensen Huang's exit from Nvidia</a>, CME FedWatch shows the market pricing a 90% chance of a quarter-point hike in December and a 10% chance of a half-point. It now expects three hikes by June instead of two.</li>
-                <li>Morgan Stanley's Mike Wilson warns that a hawkish Fed is the main risk to his call for a year-end rally. Small caps feel the most pain from higher rates because of their floating-rate debt, and some large caps like Rocket Companies also suffer.</li>
-                <li><a href="https://www.barrons.com/articles/anthropic-ipo-ant-stock-price-fa215f5a" target="_blank" rel="noopener noreferrer">Anthropic's IPO</a> is expected this week.</li>
-                <li>Also linked: <a href="https://www.barrons.com/articles/buy-take-two-stock-grand-theft-auto-vi-1b7b9907" target="_blank" rel="noopener noreferrer">Grand Theft Auto VI Makes Take-Two Stock Look Like a Steal</a>.</li>
               </ul>
             </section>
 
